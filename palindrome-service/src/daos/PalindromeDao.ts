@@ -1,5 +1,10 @@
 import mongoose, { Schema, Document, Model } from 'mongoose';
 
+export interface IPalindromeSolution {
+  largestPalindromeLength: number;
+  largestPalindrome: string;
+}
+
 export interface IPalindrome extends Document {
   taskId: string;
   status: 'submitted' | 'started' | 'completed';
@@ -11,10 +16,7 @@ export interface IPalindrome extends Document {
   problem: {
     text: string;
   };
-  solution?: {
-    largestPalindromeLength: number;
-    largestPalindrome: string;
-  };
+  solution?: IPalindromeSolution;
 }
 
 const PalindromeSchema: Schema = new Schema({
@@ -46,3 +48,15 @@ export const updateStatusByTaskId = async (taskId: string, newStatus: 'submitted
     },
   });
 };
+
+export const updatePalindromeSolution = async (taskId: string, palindromSolution: IPalindromeSolution) => {
+  await model.findByIdAndUpdate(taskId, {
+    $set: {
+      solution: palindromSolution,
+      status: 'completed',
+      timestamps: {
+        started: Date.now(),
+      },
+    },
+  });
+}
