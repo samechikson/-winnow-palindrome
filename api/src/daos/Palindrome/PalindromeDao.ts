@@ -1,4 +1,9 @@
-import mongoose, { Schema, Document, Model } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
+
+export interface IPalindromeSolution {
+  largestPalindromeLength: number;
+  largestPalindrome: string;
+}
 
 export interface IPalindrome extends Document {
   taskId: string;
@@ -11,10 +16,7 @@ export interface IPalindrome extends Document {
   problem: {
     text: string;
   };
-  solution?: {
-    largestPalindromeLength: number;
-    largestPalindrome: string;
-  };
+  solution?: IPalindromeSolution;
 }
 
 const PalindromeSchema: Schema = new Schema({
@@ -34,4 +36,27 @@ const PalindromeSchema: Schema = new Schema({
   },
 });
 
-export default mongoose.model<IPalindrome>('Palindrome', PalindromeSchema) as Model<IPalindrome>;
+const PalindromeModel = mongoose.model<IPalindrome>('Palindrome', PalindromeSchema);
+
+export const findPalindromeByProblemText = async (problemText: string) => {
+  return await PalindromeModel.findOne({
+    problem: {
+      text: problemText,
+    },
+  });
+};
+
+export const saveNewPalindromeProblem = async (text: string): Promise<Document> => {
+  const palindrome = new PalindromeModel();
+  palindrome.status = 'started';
+  palindrome.timestamps.submitted = Date.now();
+  palindrome.problem.text = text;
+  const savedPalindrome = await palindrome.save();
+  savedPalindrome.taskId = savedPalindrome._id;
+
+  return savedPalindrome;
+};
+
+export const FindPalindromeById = async (taskId: string) => {
+  return await PalindromeModel.findById(taskId);
+}

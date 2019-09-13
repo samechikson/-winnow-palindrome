@@ -1,4 +1,4 @@
-import PalindromeDocument from './../daos/Palindrome/PalindromeDao';
+import * as PalindromeDao from './../daos/Palindrome/PalindromeDao';
 import { logger, paramMissingError, messenger } from '@shared';
 import { Request, Response, Router } from 'express';
 import { BAD_REQUEST, CREATED, OK, NOT_FOUND } from 'http-status-codes';
@@ -17,12 +17,14 @@ router.post('/', async (req: Request, res: Response) => {
         error: paramMissingError,
       });
     }
-    const palindrome = new PalindromeDocument();
-    palindrome.status = 'started';
-    palindrome.timestamps.submitted = Date.now();
-    palindrome.problem.text = text;
-    const savedPalindrome = await palindrome.save();
-    savedPalindrome.taskId = savedPalindrome._id;
+
+    // See if Palindrome already exists
+    const foundPalindrome = await PalindromeDao.findPalindromeByProblemText(text);
+    if (foundPalindrome) {
+      return res.status(OK).json(foundPalindrome);
+    }
+
+    const savedPalindrome = await PalindromeDao.saveNewPalindromeProblem(text);
 
     // publish message
     messenger.publish('redis', JSON.stringify(savedPalindrome));
@@ -45,7 +47,7 @@ router.get('/:taskId', async (req: Request, res: Response) => {
     });
   }
   try {
-    const palindrome = await PalindromeDocument.findById(taskId);
+    const palindrome = await PalindromeDao.FindPalindromeById(taskId);
     if (palindrome) {
       palindrome.taskId = palindrome._id;
       return res.status(OK).json(palindrome);
