@@ -34,4 +34,15 @@ const PalindromeSchema: Schema = new Schema({
   },
 });
 
-export default mongoose.model<IPalindrome>('Palindrome', PalindromeSchema) as Model<IPalindrome>;
+const model = mongoose.model<IPalindrome>('Palindrome', PalindromeSchema);
+
+export const updateStatusByTaskId = async (taskId: string, newStatus: 'submitted' | 'started' | 'completed') => {
+  await model.findByIdAndUpdate(taskId, {
+    $set: {
+      status: newStatus,
+      timestamps: {
+        started: Date.now(),
+      },
+    },
+  });
+};
