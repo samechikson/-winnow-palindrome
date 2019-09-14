@@ -6,27 +6,17 @@ services:
   #     - "3001:3001"
   #   environment:
   #     DB_HOST: "TEST"
+  #     PORT: 3001
 
-  # rabbitmq:
-  #   image: "rabbitmq:3-management"
-  #   hostname: "rabbitmq"
+  # palindrome-service:
+  #   build: ./palindrome-service
   #   environment:
-  #     RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
-  #     RABBITMQ_DEFAULT_USER: "rabbitmq"
-  #     RABBITMQ_DEFAULT_PASS: "rabbitmq"
-  #     RABBITMQ_DEFAULT_VHOST: "/"
-  #   ports:
-  #     - "15672:15672"
-  #     - "5672:5672"
-  #   labels:
-  #     NAME: "rabbitmq"
-  #   volumes:
-  #     - ./data/rabbitmq:/var/lib/rabbitmq/mnesia/rabbit@app-rabbitmq:cached
+  #     DB_HOST: "TEST"
   
-  redis:
-    image: "redis:5"
-    ports:
-      - "6379:6379"
+  # redis:
+  #   image: "redis:5"
+  #   ports:
+  #     - "6379:6379"
 
   db:
     image: "mongo:4.2.0-bionic"
