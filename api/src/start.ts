@@ -3,7 +3,7 @@ import { logger, dbConnect } from '@shared';
 
 // Start the server
 const port = Number(process.env.PORT || 3000);
-const db = 'mongodb://localhost:27017/test';
+const db = `mongodb://${process.env.DB_HOST}:27017/test`;
 
 (async () => {
     await dbConnect({ db });

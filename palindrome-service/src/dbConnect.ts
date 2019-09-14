@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { logger } from './Logger';
+import { logger } from '@shared';
 
 type TInput = {
   db: string;
@@ -12,11 +12,9 @@ export const dbConnect = ({ db }: TInput) => {
         db,
         {
           useNewUrlParser: true,
-          server: {
-            autoReconnect: true,
-            reconnectTries: 10,
-            reconnectInterval: 1000,
-          },
+          autoReconnect: true,
+          reconnectTries: 10,
+          reconnectInterval: 1000,
         },
       );
       logger.info(`Successfully connected to ${db}`);

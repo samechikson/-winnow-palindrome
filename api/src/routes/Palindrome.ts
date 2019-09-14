@@ -1,5 +1,5 @@
 import * as PalindromeDao from './../daos/Palindrome/PalindromeDao';
-import { logger, paramMissingError, messenger } from '@shared';
+import { logger, paramMissingError, pubSubManager } from '@shared';
 import { Request, Response, Router } from 'express';
 import { BAD_REQUEST, CREATED, OK, NOT_FOUND } from 'http-status-codes';
 
@@ -27,7 +27,7 @@ router.post('/', async (req: Request, res: Response) => {
     const savedPalindrome = await PalindromeDao.saveNewPalindromeProblem(text);
 
     // publish message
-    messenger.publish('redis', JSON.stringify(savedPalindrome));
+    pubSubManager.publish('redis', JSON.stringify(savedPalindrome));
 
     return res.status(CREATED).json(savedPalindrome.toJSON());
   } catch (err) {

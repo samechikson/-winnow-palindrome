@@ -8,10 +8,14 @@ COPY package*.json ./
 
 USER node
 
-RUN npm install
+RUN npm install --production
 
 COPY --chown=node:node . .
 
+RUN npm run build
+
+COPY --chown=node:node dist ./dist
+
 EXPOSE 3000
 
-CMD [ "npm", "run", "start-dev"]
+CMD [ "npm", "run", "start"]

@@ -6,24 +6,28 @@ type TInput = {
 };
 
 export const dbConnect = ({ db }: TInput) => {
-
-  const connect = () => {
-    mongoose
-      .connect(
+  const connect = async () => {
+    try {
+      await mongoose.connect(
         db,
-        { useNewUrlParser: true },
-      )
-      .then(() => {
-        // tslint:disable-next-line:no-console
-        return logger.info(`Successfully connected to ${db}`);
-      })
-      .catch((error) => {
-        // tslint:disable-next-line:no-console
-        logger.error('Error connecting to database: ', error);
-        return process.exit(1);
-      });
+        {
+          useNewUrlParser: true,
+          autoReconnect: true,
+          reconnectTries: 10,
+          reconnectInterval: 1000,
+        },
+      );
+      logger.info(`Successfully connected to ${db}`);
+    } catch (error) {
+      logger.error('Error connecting to database: ', error);
+    }
   };
+
   connect();
 
   mongoose.connection.on('disconnected', connect);
+
+  return new Promise((resolve, reject) => {
+    mongoose.connection.once('open', resolve);
+  });
 };

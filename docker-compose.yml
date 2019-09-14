@@ -3,22 +3,29 @@ services:
   # api:
   #   build: ./api
   #   ports:
-  #     - "3001:3001"
+  #     - "3000:3000"
+  #   links:
+  #     - mongodb
+  #     - redis
   #   environment:
-  #     DB_HOST: "TEST"
-  #     PORT: 3001
+  #     DB_HOST: "mongodb"
+  #     PORT: 3000
 
   # palindrome-service:
   #   build: ./palindrome-service
+  #   links:
+  #     - mongodb
+  #     - redis
   #   environment:
-  #     DB_HOST: "TEST"
+  #     DB_HOST: "mongodb"
+  #     REDIS_HOST: "redis"
   
-  # redis:
-  #   image: "redis:5"
-  #   ports:
-  #     - "6379:6379"
+  redis:
+    image: "redis:5"
+    ports:
+      - "6379:6379"
 
-  db:
+  mongodb:
     image: "mongo:4.2.0-bionic"
     ports:
       - "27017:27017"    
