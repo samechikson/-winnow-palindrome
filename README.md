@@ -1,9 +1,9 @@
 # Winnow Palindrome Problem 
 
 ## Solution overview
-Microservices 
 
 ![Winner Microservices](./WinnowPalindrome.png)
+___
 
 1. __API Service__ (NodeJS + Express) - Entry point for the application. Exposes endpoints to end user
     - `POST /palindrome` Puts a palindrome problem on the queue
@@ -20,7 +20,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 Docker and `docker-compose`
 
-### Installing
+### Running
 
 Pull this repository onto your local and 
 
@@ -31,7 +31,7 @@ docker-compose up
 The API will be exposed on Port 3000.
 
 ```
-$curl -X POST \
+curl -X POST \
   http://localhost:3000/palindrome \
   -H 'Content-Type: application/json' \
   -d '{
@@ -62,8 +62,9 @@ should return something like
 ## Running the tests
 
 Each project has its own unit tests:
-* `./api`  
-* `./palindrome-service`
+
+1. `./api`  
+2. `./palindrome-service`
 
 `cd` into the project and run `npm run test`. Prerequisite: Node and NPM installed on local machine.
 
