@@ -41,10 +41,8 @@ const model = mongoose.model<IPalindrome>('Palindrome', PalindromeSchema);
 export const updateStatusByTaskId = async (taskId: string, newStatus: 'submitted' | 'started' | 'completed') => {
   await model.findByIdAndUpdate(taskId, {
     $set: {
-      status: newStatus,
-      timestamps: {
-        started: Date.now(),
-      },
+      'status': newStatus,
+      'timestamps.started': Date.now(),
     },
   });
 };
@@ -52,11 +50,9 @@ export const updateStatusByTaskId = async (taskId: string, newStatus: 'submitted
 export const updatePalindromeSolution = async (taskId: string, palindromSolution: IPalindromeSolution) => {
   await model.findByIdAndUpdate(taskId, {
     $set: {
-      solution: palindromSolution,
-      status: 'completed',
-      timestamps: {
-        completed: Date.now(),
-      },
+      'solution': palindromSolution,
+      'status': 'completed',
+      'timestamps.completed': Date.now(),
     },
   });
 };
