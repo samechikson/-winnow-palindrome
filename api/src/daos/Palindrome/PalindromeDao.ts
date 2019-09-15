@@ -48,7 +48,7 @@ export const findPalindromeByProblemText = async (problemText: string) => {
 
 export const saveNewPalindromeProblem = async (text: string): Promise<Document> => {
   const palindrome = new PalindromeModel();
-  palindrome.status = 'started';
+  palindrome.status = 'submitted';
   palindrome.timestamps.submitted = Date.now();
   palindrome.problem.text = text;
   const savedPalindrome = await palindrome.save();
@@ -59,4 +59,4 @@ export const saveNewPalindromeProblem = async (text: string): Promise<Document> 
 
 export const FindPalindromeById = async (taskId: string) => {
   return await PalindromeModel.findById(taskId);
-}
+};

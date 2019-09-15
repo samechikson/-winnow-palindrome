@@ -55,7 +55,7 @@ export const updatePalindromeSolution = async (taskId: string, palindromSolution
       solution: palindromSolution,
       status: 'completed',
       timestamps: {
-        started: Date.now(),
+        completed: Date.now(),
       },
     },
   });
