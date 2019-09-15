@@ -19,25 +19,25 @@ const wintstonLogger = createLogger({
  * to `combined.log. Write all logs error (and below) to `error.log`.
  * For development, print to the console.
  */
-// if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
 
-//     const fileFormat = format.combine(
-//         format.timestamp(),
-//         format.json(),
-//     );
-//     const errTransport = new File({
-//         filename: './logs/error.log',
-//         format: fileFormat,
-//         level: 'error',
-//     });
-//     const infoTransport = new File({
-//         filename: './logs/combined.log',
-//         format: fileFormat,
-//     });
-//     wintstonLogger.add(errTransport);
-//     wintstonLogger.add(infoTransport);
+    const fileFormat = format.combine(
+        format.timestamp(),
+        format.json(),
+    );
+    const errTransport = new File({
+        filename: './logs/error.log',
+        format: fileFormat,
+        level: 'error',
+    });
+    const infoTransport = new File({
+        filename: './logs/combined.log',
+        format: fileFormat,
+    });
+    wintstonLogger.add(errTransport);
+    wintstonLogger.add(infoTransport);
 
-// } else {
+} else {
 
     const errorStackFormat = format((info) => {
         if (info.stack) {
@@ -55,7 +55,7 @@ const wintstonLogger = createLogger({
         ),
     });
     wintstonLogger.add(consoleTransport);
-// }
+}
 
 // Export logger
 export const logger = wintstonLogger;

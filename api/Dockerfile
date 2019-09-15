@@ -8,14 +8,14 @@ COPY package*.json ./
 
 USER node
 
-RUN npm install --production
+RUN npm install --production && npm install typescript
 
 COPY --chown=node:node . .
 
 RUN npm run build
 
-COPY --chown=node:node dist ./dist
+RUN ls -la /home/node/app
 
 EXPOSE 3000
 
-CMD [ "npm", "run", "start"]
+CMD [ "npm", "start"]

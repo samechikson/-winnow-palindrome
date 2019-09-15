@@ -1,6 +1,5 @@
 import { PubsubManager } from 'redis-messaging-manager';
 import { logger } from '@shared';
-import { delay } from 'rxjs/operators';
 
 logger.info(`REDIS_HOST: ${process.env.REDIS_HOST}`);
 
@@ -16,7 +15,6 @@ pubSubManager.getServerEventStream('connect')
     logger.info(`Connected to Redis at ${process.env.REDIS_HOST}`);
   });
 pubSubManager.getServerEventStream('reconnecting')
-  // .pipe(delay(1000))
   .subscribe(() => {
     logger.info(`Retrying connection to Redis at ${process.env.REDIS_HOST}`);
   });

@@ -7,6 +7,7 @@ type TInput = {
 
 export const dbConnect = ({ db }: TInput) => {
   const connect = async () => {
+    logger.info(`Connecting to DB at ${db}`);
     try {
       await mongoose.connect(
         db,

@@ -20,7 +20,10 @@ router.post('/', async (req: Request, res: Response) => {
 
     // See if Palindrome already exists
     const foundPalindrome = await PalindromeDao.findPalindromeByProblemText(text);
-    if (foundPalindrome) {
+    if (foundPalindrome &&
+        foundPalindrome.solution &&
+        foundPalindrome.solution.largestPalindrome &&
+        foundPalindrome.solution.largestPalindromeLength) {
       return res.status(OK).json(foundPalindrome);
     }
 

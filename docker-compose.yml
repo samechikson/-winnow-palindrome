@@ -1,24 +1,29 @@
 version: '2'
 services:
-  # api:
-  #   build: ./api
-  #   ports:
-  #     - "3000:3000"
-  #   links:
-  #     - mongodb
-  #     - redis
-  #   environment:
-  #     DB_HOST: "mongodb"
-  #     PORT: 3000
+  api:
+    build: ./api
+    ports:
+      - "3000:3000"
+    links:
+      - mongodb
+      - redis
+    environment:
+      DB_HOST: "mongodb"
+      REDIS_HOST: "redis"
+      PORT: 3000
+    depends_on:
+      - redis
 
-  # palindrome-service:
-  #   build: ./palindrome-service
-  #   links:
-  #     - mongodb
-  #     - redis
-  #   environment:
-  #     DB_HOST: "mongodb"
-  #     REDIS_HOST: "redis"
+  palindrome-service:
+    build: ./palindrome-service
+    links:
+      - mongodb
+      - redis
+    environment:
+      DB_HOST: "mongodb"
+      REDIS_HOST: "redis"
+    depends_on:
+      - redis
   
   redis:
     image: "redis:5"

@@ -25,7 +25,7 @@ export const dbConnect = ({ db }: TInput) => {
 
   connect();
 
-  mongoose.connection.on('disconnected', connect);
+  // mongoose.connection.on('disconnected', connect);
 
   return new Promise((resolve, reject) => {
     mongoose.connection.once('open', resolve);
