@@ -5,13 +5,12 @@ Microservices
 
 ![Winner Microservices](./WinnowPalindrome.png)
 
-Consists of:
-- __API Service__ (NodeJS + Express) - Entry point for the application. Exposes endpoints to end user
+1. __API Service__ (NodeJS + Express) - Entry point for the application. Exposes endpoints to end user
     - `POST /palindrome` Puts a palindrome problem on the queue
     - `GET /palindrome/{taskId}` Get a palindrome problem by taskId 
-- __Queue__ (Redis) - Holds palindrome problems 
-- __Palindrome Processing Service__ (NodeJS) - Picks palindrome problems off the queue, processes them to find a solution, saves the solution to the database.
-- __DB__ (MongoDB) - persistence layer 
+2. __Queue__ (Redis) - Holds palindrome problems 
+3. __Palindrome Processing Service__ (NodeJS) - Picks palindrome problems off the queue, processes them to find a solution, saves the solution to the database.
+4. __DB__ (MongoDB) - persistence layer 
 
 ## Getting Started
 
@@ -63,8 +62,8 @@ should return something like
 ## Running the tests
 
 Each project has its own unit tests:
-- `./api`  
-- `./palindrome-service`
+* `./api`  
+* `./palindrome-service`
 
 `cd` into the project and run `npm run test`. Prerequisite: Node and NPM installed on local machine.
 
