@@ -5,6 +5,7 @@ logger.info(`REDIS_HOST: ${process.env.REDIS_HOST}`);
 
 export const pubSubManager = new PubsubManager({
   host: process.env.REDIS_HOST,
+  retryStrategy: (times) => times < 5 ? 5000 : false,
 });
 pubSubManager.getServerEventStream('error')
   .subscribe(() => {
@@ -18,5 +19,3 @@ pubSubManager.getServerEventStream('reconnecting')
   .subscribe(() => {
     logger.info(`Retrying connection to Redis at ${process.env.REDIS_HOST}`);
   });
-
-export default pubSubManager;

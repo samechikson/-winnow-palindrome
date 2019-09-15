@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { logger } from './Logger';
+import { logger } from '@shared';
 
 type TInput = {
   db: string;
@@ -7,6 +7,7 @@ type TInput = {
 
 export const dbConnect = ({ db }: TInput) => {
   const connect = async () => {
+    logger.info(`Connecting to DB at ${db}`);
     try {
       await mongoose.connect(
         db,
@@ -25,7 +26,7 @@ export const dbConnect = ({ db }: TInput) => {
 
   connect();
 
-  // mongoose.connection.on('disconnected', connect);
+  mongoose.connection.on('disconnected', connect);
 
   return new Promise((resolve, reject) => {
     mongoose.connection.once('open', resolve);

@@ -1,5 +1,4 @@
-import pubSubManager from '@manager';
-import { dbConnect, logger } from '@shared';
+import { dbConnect, logger, pubSubManager } from '@shared';
 import { newProblemConsumer } from './consumers';
 
 // Initialize connection to database
@@ -10,7 +9,7 @@ const db = `mongodb://${process.env.DB_HOST}:27017/test`;
 
     // Start the Pub/Sub Manager
     try {
-        pubSubManager.consume('redis').subscribe(
+        pubSubManager.consume(process.env.PALINDROME_CHANNEL as string).subscribe(
             async (msg: string) => {
                 try {
                     await newProblemConsumer(msg);

@@ -30,7 +30,7 @@ router.post('/', async (req: Request, res: Response) => {
     const savedPalindrome = await PalindromeDao.saveNewPalindromeProblem(text);
 
     // publish message
-    pubSubManager.publish('redis', JSON.stringify(savedPalindrome));
+    pubSubManager.publish(process.env.PALINDROME_CHANNEL as string, JSON.stringify(savedPalindrome));
 
     return res.status(CREATED).json(savedPalindrome.toJSON());
   } catch (err) {

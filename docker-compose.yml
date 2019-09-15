@@ -10,6 +10,7 @@ services:
     environment:
       DB_HOST: "mongodb"
       REDIS_HOST: "redis"
+      PALINDROME_CHANNEL: "palindrome"
       PORT: 3000
     depends_on:
       - redis
@@ -22,6 +23,7 @@ services:
     environment:
       DB_HOST: "mongodb"
       REDIS_HOST: "redis"
+      PALINDROME_CHANNEL: "palindrome"
     depends_on:
       - redis
   

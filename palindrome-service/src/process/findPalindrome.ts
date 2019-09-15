@@ -15,4 +15,4 @@ export const findPalindromes = (s: string): string[] => {
     }
   }
   return subStrings;
-}
+};

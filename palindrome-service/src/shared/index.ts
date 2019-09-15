@@ -1,4 +1,4 @@
 export * from './Logger';
 export * from './Misc';
 export * from './DbConnect';
-export * from './Messenger';
+export * from './PubSubManager';
