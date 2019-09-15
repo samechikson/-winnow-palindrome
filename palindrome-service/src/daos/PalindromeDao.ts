@@ -59,4 +59,4 @@ export const updatePalindromeSolution = async (taskId: string, palindromSolution
       },
     },
   });
-}
+};

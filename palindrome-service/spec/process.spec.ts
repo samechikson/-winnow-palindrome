@@ -1,15 +1,6 @@
 import { findPalindromes } from './../src/process/findPalindrome';
-import supertest from 'supertest';
-import { Response, SuperTest, Test } from 'supertest';
 
-let agent: SuperTest<Test>;
-
-describe('Users Routes', () => {
-
-  // beforeAll((done) => {
-  //   agent = supertest.agent(app);
-  //   done();
-  // });
+describe('Palindrome Process', () => {
 
   it('Should find all palindromes', () => {
     const testString = 'testtest test';

@@ -1,9 +1,8 @@
-import * as PalindromeDao from './../daos/PalindromeDao';
+import * as PalindromeDao from './../daos';
 import { findPalindromes } from '../process';
 import { logger } from '@shared';
 
 export const newProblemConsumer = async (msg: string) => {
-  logger.info('in the consumer');
   const palindromeRequest: PalindromeDao.IPalindrome = JSON.parse(msg);
 
   try {
@@ -26,5 +25,4 @@ export const newProblemConsumer = async (msg: string) => {
   } catch (err) {
     logger.error(`Could not update status to 'completed': `, err);
   }
-
 };
