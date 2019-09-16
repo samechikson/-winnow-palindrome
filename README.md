@@ -2,15 +2,17 @@
 
 ## Solution overview
 
+This application uses a microservices architecture to compute palindromes inside a given piece of text. It consists of the following components:
+
 ![Winner Microservices](./WinnowPalindrome.png)
 ___
 
-1. __API Service__ (NodeJS + Express) - Entry point for the application. Exposes endpoints to end user
-    - `POST /palindrome` Puts a palindrome problem on the queue
-    - `GET /palindrome/{taskId}` Get a palindrome problem by taskId 
+1. __API Service__ (NodeJS + Express) - Entry point for the application. It exposes two endpoints:
+    - `POST /palindrome` Queues a palindrome problem to be computed (See example below). It attemps to match on the given text, and if it does, it will return the result of a problem that was already computed.
+    - `GET /palindrome/{taskId}` Get a palindrome problem by taskId if it has already been sent to the server.
 2. __Queue__ (Redis) - Holds palindrome problems 
 3. __Palindrome Processing Service__ (NodeJS) - Picks palindrome problems off the queue, processes them to find a solution, saves the solution to the database.
-4. __DB__ (MongoDB) - persistence layer 
+4. __DB__ (MongoDB) - persistence layer which holds existing palindrome problems
 
 ## Getting Started
 
@@ -28,7 +30,7 @@ Pull this repository onto your local and
 docker-compose up
 ```
 
-The API will be exposed on Port 3000.
+The API will expose port 3000 with the endpoints defined above.
 
 ```
 curl -X POST \
